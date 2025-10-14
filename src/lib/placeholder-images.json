@@ -1,0 +1,40 @@
+{
+  "placeholderImages": [
+    {
+      "id": "hero-background",
+      "description": "A bright and modern dental clinic waiting room",
+      "imageUrl": "https://images.unsplash.com/photo-1606811841689-23dfddce3e95?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxkZW50YWwlMjBjbGluaWN8ZW58MHx8fHwxNzU5MTU0NzY5fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dental clinic"
+    },
+    {
+      "id": "mission-image",
+      "description": "A caring dentist explaining a procedure to a patient",
+      "imageUrl": "https://images.unsplash.com/photo-1642844771937-23accb161a3d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxkZW50aXN0JTIwcGF0aWVudHxlbnwwfHx8fDE3NTkxODQ2MjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "dentist patient"
+    },
+    {
+      "id": "plan-recommender-banner",
+      "description": "A person looking thoughtfully at a document",
+      "imageUrl": "https://images.unsplash.com/photo-1697384834684-d1ef30023607?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwZXJzb24lMjBkb2N1bWVudHxlbnwwfHx8fDE3NTkxODQ2MjN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person document"
+    },
+    {
+      "id": "find-provider-banner",
+      "description": "A map with location pins",
+      "imageUrl": "https://images.unsplash.com/photo-1619468129361-605ebea04b44?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtYXAlMjBsb2NhdGlvbnxlbnwwfHx8fDE3NTkxNjMyOTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "map location"
+    },
+    {
+      "id": "free-visit-banner",
+      "description": "A piggy bank with a tooth on it",
+      "imageUrl": "https://images.unsplash.com/photo-1580508174046-170816f65662?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwaWdneSUyMGJhbmt8ZW58MHx8fHwxNzU5MTcxNTgxfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "piggy bank"
+    },
+    {
+      "id": "learn-banner",
+      "description": "A collection of books and an apple on a desk",
+      "imageUrl": "https://images.unsplash.com/photo-1666198259234-f7033c78b94e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxib29rcyUyMGVkdWNhdGlvbnxlbnwwfHx8fDE3NTkxODQ2MjR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "books education"
+    }
+  ]
+}
