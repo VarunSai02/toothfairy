@@ -33,14 +33,14 @@ export function Hero() {
         </p>
         <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
           <Button size="lg" asChild>
-            <Link href="/plan-recommender">
+            <Link href="/ai-chat">
               <Sparkles className="mr-2 h-5 w-5" />
-              Get AI Recommendation
+              Chat with AI Advisor
             </Link>
           </Button>
           <Button size="lg" variant="outline" className="bg-transparent text-white border-white hover:bg-white hover:text-primary" asChild>
-            <Link href="/learn">
-              Learn More <ArrowRight className="ml-2 h-5 w-5" />
+            <Link href="/plan-recommender">
+              Get Quick Recommendation <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </Button>
         </div>

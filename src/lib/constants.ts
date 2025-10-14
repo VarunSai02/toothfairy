@@ -1,6 +1,7 @@
 export const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/plan-recommender", label: "Plan Recommender" },
+  { href: "/ai-chat", label: "AI Advisor" },
   { href: "/find-provider", label: "Find a Provider" },
   { href: "/free-visit", label: "Free Visit" },
   { href: "/learn", label: "Learn" },
