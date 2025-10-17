@@ -126,6 +126,32 @@ export async function generatePlanRecommendations(
   try {
     const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash' })
 
+    // Netlify Functions have strict time limits. Timebox the LLM call so
+    // server actions return promptly instead of hitting a 504.
+    const TIMEOUT_MS = 8000
+    const withTimeout = <T>(p: Promise<T>, ms: number, onTimeout: () => T): Promise<T> => {
+      return new Promise<T>((resolve) => {
+        let settled = false
+        const timer = setTimeout(() => {
+          if (settled) return
+          settled = true
+          resolve(onTimeout())
+        }, ms)
+        p.then((val) => {
+          if (settled) return
+          settled = true
+          clearTimeout(timer)
+          resolve(val)
+        }).catch(() => {
+          if (settled) return
+          settled = true
+          clearTimeout(timer)
+          // Treat errors like timeouts and fall back
+          resolve(onTimeout())
+        })
+      })
+    }
+
     const prompt = `
 You are a dental insurance expert. Generate personalized plan recommendations based on user information.
 
@@ -161,7 +187,43 @@ Provide 3 personalized recommendations in JSON format:
 }
 `
 
-    const result = await model.generateContent(prompt)
+    const result = await withTimeout(
+      model.generateContent(prompt),
+      TIMEOUT_MS,
+      () => ({
+        // Minimal shape to satisfy downstream usage when timing out
+        response: {
+          text: () => JSON.stringify({
+            recommendations: [
+              {
+                plan: 'Delta Dental PPO',
+                reason: 'Comprehensive coverage with large network',
+                monthlyCost: '$45/month',
+                coverage: 'Preventive, basic, and major dental services',
+                pros: ['Large network', 'No waiting period for preventive', 'Good coverage'],
+                cons: ['Higher premium', 'Limited orthodontics'],
+              },
+              {
+                plan: 'Aetna Dental PPO',
+                reason: 'Good balance of cost and coverage',
+                monthlyCost: '$35/month',
+                coverage: 'Preventive and basic services',
+                pros: ['Affordable', 'Good preventive coverage', 'Easy claims'],
+                cons: ['Limited major coverage', 'Smaller network'],
+              },
+              {
+                plan: 'Cigna Dental PPO',
+                reason: 'Flexible options for different needs',
+                monthlyCost: '$40/month',
+                coverage: 'Comprehensive dental and vision',
+                pros: ['Includes vision', 'Flexible plans', 'Good customer service'],
+                cons: ['Higher deductibles', 'Limited orthodontics'],
+              },
+            ],
+          })
+        }
+      } as any)
+    )
     const response = await result.response
     const text = response.text()
 
