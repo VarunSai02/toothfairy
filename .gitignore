@@ -43,3 +43,10 @@ next-env.d.ts
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+
+# Setup Documentation
+AUTHENTICATION_SETUP.md
+DEPLOYMENT_GUIDE.md
+GEMINI_API_KEYS.md
+NETLIFY_BUILD_FIX.md
