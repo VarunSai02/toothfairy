@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { generateChatRecommendation } from '@/ai/flows/chat-recommendation'
+import { generateChatResponse } from '@/lib/ai-service'
 
 export async function POST(request: NextRequest) {
   try {
@@ -15,8 +15,8 @@ export async function POST(request: NextRequest) {
     // Analyze the user's message to extract relevant information
     const userInfo = analyzeUserMessage(message, conversationHistory)
     
-    // Generate AI response and recommendations using the new flow
-    const aiResult = await generateChatRecommendation(message, userInfo, conversationHistory)
+    // Generate AI response and recommendations using the new AI service
+    const aiResult = await generateChatResponse(message, userInfo, conversationHistory)
     
     return NextResponse.json({
       response: aiResult.response,

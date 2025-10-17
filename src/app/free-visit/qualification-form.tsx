@@ -1,6 +1,7 @@
 "use client";
 
-import { useFormState, useFormStatus } from "react-dom";
+import { useActionState } from "react";
+import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -37,6 +38,7 @@ import {
 } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { useEffect, useRef, startTransition } from "react";
 
 const formSchema = z.object({
   planDetails: z.string().min(1, "Please select your insurance plan."),
@@ -69,43 +71,42 @@ function SubmitButton() {
 }
 
 export function QualificationForm() {
-  const [state, formAction] = useFormState(getFreeVisitCodes, initialState);
+  const [state, formAction] = useActionState(getFreeVisitCodes, initialState);
   const { toast } = useToast();
+  const errorShownRef = useRef<string | null>(null);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: { userSymptoms: "" },
   });
 
-  if (state.error) {
-    toast({
-      variant: "destructive",
-      title: "Qualification Check Failed",
-      description: state.error,
-    });
-  }
+  // Handle errors with useEffect to avoid render-time side effects
+  useEffect(() => {
+    if (state.error && state.error !== errorShownRef.current) {
+      errorShownRef.current = state.error;
+      toast({
+        variant: "destructive",
+        title: "Qualification Check Failed",
+        description: state.error,
+      });
+    }
+  }, [state.error, toast]);
 
   return (
     <div>
       <Card>
         <Form {...form}>
-          <form
-            action={(formData) => {
-              const plan = formData.get("planDetails");
-              const provider = formData.get("providerDetails");
-              const symptoms = formData.get("userSymptoms");
-              
-              formAction(new FormData());
-            }}
+          <form onSubmit={form.handleSubmit((data) => {
+            const formData = new FormData();
+            formData.append('planDetails', data.planDetails);
+            formData.append('providerDetails', data.providerDetails);
+            formData.append('userSymptoms', data.userSymptoms);
             
-            onSubmit={form.handleSubmit(data => {
-                const formData = new FormData();
-                formData.append('planDetails', data.planDetails);
-                formData.append('providerDetails', data.providerDetails);
-                formData.append('userSymptoms', data.userSymptoms);
-                formAction(formData);
-            })}
-          >
+            // Call the action inside startTransition
+            startTransition(() => {
+              formAction(formData);
+            });
+          })}>
             <CardHeader>
               <CardTitle>Qualification Details</CardTitle>
               <CardDescription>
