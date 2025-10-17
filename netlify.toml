@@ -22,16 +22,7 @@
 [build.processing.html]
   pretty_urls = true
 
-# Redirects for Next.js
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Let the Next.js Netlify adapter handle routing (no custom redirects needed)
 
 [dev]
   command = "npm run dev"
